@@ -9,7 +9,6 @@ import FormRow from "../../ui/FormRow";
 
 import { useCreateCabin } from "./useCreateCabin";
 import { useEditCabin } from "./useEditCabin";
-import { useEffect } from "react";
 
 function CreateCabinForm({ cabinToEdit = {} }) {
   const { isCreating, createCabin } = useCreateCabin();
@@ -23,26 +22,11 @@ function CreateCabinForm({ cabinToEdit = {} }) {
   const { id: editId, ...editValues } = cabinToEdit;
   const isEditSession = Boolean(editId);
 
-  const {
-    register,
-    handleSubmit,
-    reset,
-    getValues,
-    watch,
-    trigger,
-    formState,
-  } = useForm({
+  const { register, handleSubmit, reset, getValues, formState } = useForm({
     defaultValues: isEditSession ? editValues : {},
   });
 
   const { errors } = formState;
-
-  // Watch regularPrice to revalidate discount when it changes
-  const regularPrice = watch("regularPrice");
-
-  useEffect(() => {
-    trigger("discount");
-  }, [regularPrice, trigger]);
 
   function onSubmit(data) {
     // console.log(data);
@@ -105,8 +89,8 @@ function CreateCabinForm({ cabinToEdit = {} }) {
           {...register("regularPrice", {
             required: "This field is required",
             min: {
-              value: 10,
-              message: "Capacity should be aleast 10",
+              value: 1,
+              message: "Capacity should be aleast 1",
             },
           })}
         />
