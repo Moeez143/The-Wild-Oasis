@@ -22,6 +22,7 @@ function CreateCabinForm({ cabinToEdit = {} }) {
 
   const { errors } = formState;
 
+  // For create cabin
   const { mutate: createCabin, isLoading: isCreating } = useMutation({
     mutationFn: createEditCabin,
     onSuccess: () => {
@@ -34,8 +35,9 @@ function CreateCabinForm({ cabinToEdit = {} }) {
     onError: (err) => toast.error(err.message),
   });
 
+  // For Edit cabin
   const { mutate: editCabin, isLoading: isUpdating } = useMutation({
-    mutationFn: (newCabinData, id) => createEditCabin(newCabinData, id),
+    mutationFn: ({ newCabinData, id }) => createEditCabin(newCabinData, id),
     onSuccess: () => {
       toast.success("Cabin Successfully updated");
       queryClient.invalidateQueries({
@@ -49,6 +51,7 @@ function CreateCabinForm({ cabinToEdit = {} }) {
   const isWorking = isCreating || isUpdating;
 
   function onSubmit(data) {
+    // console.log(data);
     const image = typeof data.image === "string" ? data.image : data.image[0];
 
     if (isEditSession) {
