@@ -9,20 +9,40 @@ import FormRow from "../../ui/FormRow";
 
 import { useCreateCabin } from "./useCreateCabin";
 import { useEditCabin } from "./useEditCabin";
+import { useEffect } from "react";
 
 function CreateCabinForm({ cabinToEdit = {} }) {
   const { isCreating, createCabin } = useCreateCabin();
-  const {isUpdating, editCabin} = useEditCabin();
+  const { isUpdating, editCabin } = useEditCabin();
   const isWorking = isCreating || isUpdating;
+
+  // console.log("isCreating:", isCreating);
+  // console.log("isUpdating:", isUpdating);
+  // console.log("isWorking:", isWorking);
 
   const { id: editId, ...editValues } = cabinToEdit;
   const isEditSession = Boolean(editId);
 
-  const { register, handleSubmit, reset, getValues, formState } = useForm({
+  const {
+    register,
+    handleSubmit,
+    reset,
+    getValues,
+    watch,
+    trigger,
+    formState,
+  } = useForm({
     defaultValues: isEditSession ? editValues : {},
   });
 
   const { errors } = formState;
+
+  // Watch regularPrice to revalidate discount when it changes
+  const regularPrice = watch("regularPrice");
+
+  useEffect(() => {
+    trigger("discount");
+  }, [regularPrice, trigger]);
 
   function onSubmit(data) {
     // console.log(data);
@@ -57,7 +77,7 @@ function CreateCabinForm({ cabinToEdit = {} }) {
           id="name"
           disabled={isWorking}
           {...register("name", {
-            required: "This feild is required",
+            required: "This field is required",
           })}
         />
       </FormRow>
@@ -68,7 +88,7 @@ function CreateCabinForm({ cabinToEdit = {} }) {
           id="maxCapacity"
           disabled={isWorking}
           {...register("maxCapacity", {
-            required: "This feild is required",
+            required: "This field is required",
             min: {
               value: 1,
               message: "Capacity should be aleast 1",
@@ -83,7 +103,7 @@ function CreateCabinForm({ cabinToEdit = {} }) {
           id="regularPrice"
           disabled={isWorking}
           {...register("regularPrice", {
-            required: "This feild is required",
+            required: "This field is required",
             min: {
               value: 10,
               message: "Capacity should be aleast 10",
@@ -99,7 +119,7 @@ function CreateCabinForm({ cabinToEdit = {} }) {
           disabled={isWorking}
           defaultValue={0}
           {...register("discount", {
-            required: "This feild is required",
+            required: "This field is required",
             validate: (value) =>
               value <= getValues().regularPrice ||
               "Discount must be less than the regular price",
@@ -117,7 +137,7 @@ function CreateCabinForm({ cabinToEdit = {} }) {
           disabled={isWorking}
           defaultValue=""
           {...register("description", {
-            required: "This feild is required",
+            required: "This field is required",
           })}
         />
       </FormRow>
@@ -127,7 +147,7 @@ function CreateCabinForm({ cabinToEdit = {} }) {
           id="image"
           accept="image/*"
           {...register("image", {
-            required: isEditSession ? false : "This feild is requird",
+            required: isEditSession ? false : "This field is requird",
           })}
         />
       </FormRow>
