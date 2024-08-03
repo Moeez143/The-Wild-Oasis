@@ -48,6 +48,7 @@ function BookingRow({
     cabins: { name: cabinName },
   },
 }) {
+  //function start here
   const statusToTagName = {
     unconfirmed: "blue",
     "checked-in": "green",
