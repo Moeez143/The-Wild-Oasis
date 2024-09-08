@@ -4,7 +4,7 @@ import SpinnerMini from "../../ui/SpinnerMini";
 import { HiArrowRightOnRectangle } from "react-icons/hi2";
 import { useLogout } from "./useLogout";
 
-function LogOut() {
+function Logout() {
   const { logout, isLoading } = useLogout();
 
   return (
@@ -14,4 +14,4 @@ function LogOut() {
   );
 }
 
-export default LogOut;
+export default Logout;
