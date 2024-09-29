@@ -22,6 +22,7 @@ import ProtectedRoute from "./ui/ProtectedRoute";
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
+      //example
       // staleTime: 60 * 1000,
       staleTime: 0,
     },
