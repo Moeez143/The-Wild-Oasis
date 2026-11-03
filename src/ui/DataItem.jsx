@@ -5,6 +5,10 @@ const StyledDataItem = styled.div`
   align-items: center;
   gap: 1.6rem;
   padding: 0.8rem 0;
+
+  flex-wrap: wrap;
+  min-width: 0;
+  overflow-wrap: anywhere;
 `;
 
 const Label = styled.span`

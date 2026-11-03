@@ -8,6 +8,19 @@ const StyledUserAvatar = styled.div`
   font-weight: 500;
   font-size: 1.4rem;
   color: var(--color-grey-600);
+
+  min-width: 0;
+
+  & span {
+    max-width: 16rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 480px) {
+    display: none;
+  }
 `;
 
 const Avatar = styled.img`

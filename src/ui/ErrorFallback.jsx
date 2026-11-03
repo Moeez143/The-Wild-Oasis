@@ -10,6 +10,10 @@ const StyledErrorFallback = styled.main`
   align-items: center;
   justify-content: center;
   padding: 4.8rem;
+
+  @media (max-width: 600px) {
+    padding: 1.6rem;
+  }
 `;
 
 const Box = styled.div`
@@ -30,6 +34,10 @@ const Box = styled.div`
     font-family: "Sono";
     margin-bottom: 3.2rem;
     color: var(--color-grey-500);
+  }
+
+  @media (max-width: 600px) {
+    padding: 2.4rem;
   }
 `;
 

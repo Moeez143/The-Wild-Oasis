@@ -73,15 +73,18 @@ function BookingRow({
 
   return (
     <Table.Row>
-      <Cabin>{cabinName}</Cabin>
+      <Table.Cell data-label="Cabin"><Cabin>{cabinName}</Cabin></Table.Cell>
 
-      <Stacked>
-        <span>{guestName}</span>
-        <span>{email}</span>
-      </Stacked>
+      <Table.Cell data-label="Guest">
+        <Stacked>
+          <span>{guestName}</span>
+          <span>{email}</span>
+        </Stacked>
+      </Table.Cell>
 
-      <Stacked>
-        <span>
+      <Table.Cell data-label="Dates">
+        <Stacked>
+          <span>
           {isToday(new Date(startDate))
             ? "Today"
             : formatDistanceFromNow(startDate)}{" "}
@@ -91,13 +94,15 @@ function BookingRow({
           {format(new Date(startDate), "MMM dd yyyy")} &mdash;{" "}
           {format(new Date(endDate), "MMM dd yyyy")}
         </span>
-      </Stacked>
+        </Stacked>
+      </Table.Cell>
 
-      <Tag type={statusToTagName[status]}>{status.replace("-", " ")}</Tag>
+      <Table.Cell data-label="Status"><Tag type={statusToTagName[status]}>{status.replace("-", " ")}</Tag></Table.Cell>
 
-      <Amount>{formatCurrency(totalPrice)}</Amount>
+      <Table.Cell data-label="Amount"><Amount>{formatCurrency(totalPrice)}</Amount></Table.Cell>
 
-      <Modal>
+      <Table.Cell data-label="Actions">
+        <Modal>
         <Menus.Menu>
           <Menus.Toggle id={bookingId} />
           <Menus.List id={bookingId}>
@@ -142,7 +147,8 @@ function BookingRow({
             onConfirm={() => deleteBooking(bookingId)}
           />
         </Modal.Window>
-      </Modal>
+        </Modal>
+      </Table.Cell>
     </Table.Row>
   );
 }

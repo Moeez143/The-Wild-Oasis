@@ -9,6 +9,14 @@ const StyledPagination = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  gap: 1.2rem;
+  flex-wrap: wrap;
+
+  @media (max-width: 600px) {
+    justify-content: center;
+    text-align: center;
+  }
 `;
 
 const P = styled.p`
@@ -23,6 +31,11 @@ const P = styled.p`
 const Buttons = styled.div`
   display: flex;
   gap: 0.6rem;
+
+  @media (max-width: 600px) {
+    width: 100%;
+    justify-content: center;
+  }
 `;
 
 const PaginationButton = styled.button`

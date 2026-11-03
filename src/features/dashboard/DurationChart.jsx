@@ -10,6 +10,7 @@ import {
   Tooltip,
 } from "recharts";
 import { useDarkMode } from "../../context/DarkModeContext";
+import { useMediaQuery } from "../../hooks/useMediaQuery";
 
 const ChartBox = styled.div`
   /* Box */
@@ -26,6 +27,17 @@ const ChartBox = styled.div`
 
   & .recharts-pie-label-text {
     font-weight: 600;
+  }
+
+  min-width: 0;
+
+  @media (max-width: 1200px) {
+    grid-column: 1 / -1;
+  }
+
+  @media (max-width: 700px) {
+    grid-column: 1;
+    padding: 1.6rem;
   }
 `;
 
@@ -144,6 +156,7 @@ function prepareData(startData, stays) {
 
 function DurationChart({ confirmedStays }) {
   const { isDarkMode } = useDarkMode();
+  const isMobile = useMediaQuery("(max-width: 700px)");
   const startData = isDarkMode ? startDataDark : startDataLight;
   const data = prepareData(startData, confirmedStays);
 
@@ -151,16 +164,16 @@ function DurationChart({ confirmedStays }) {
     <ChartBox>
       <Heading as="h2">Stays Duration Summary</Heading>
 
-      <ResponsiveContainer>
+      <ResponsiveContainer width="100%" height={300}>
         <PieChart>
           <Pie
             data={data}
             nameKey="duration"
             dataKey="value"
-            innerRadius={75}
-            outerRadius={100}
-            cx="40%"
-            cy="50%"
+            innerRadius={isMobile ? 55 : 75}
+            outerRadius={isMobile ? 78 : 100}
+            cx={isMobile ? "50%" : "40%"}
+            cy={isMobile ? "42%" : "50%"}
             paddingAngle={5}
           >
             {data.map((entry) => (
@@ -173,10 +186,10 @@ function DurationChart({ confirmedStays }) {
           </Pie>
           <Tooltip />
           <Legend
-            verticalAlign="middle"
-            align="right"
-            width="30%"
-            layout="vertical"
+            verticalAlign={isMobile ? "bottom" : "middle"}
+            align={isMobile ? "center" : "right"}
+            width={isMobile ? "100%" : "30%"}
+            layout={isMobile ? "horizontal" : "vertical"}
             iconSize={10}
             iconType="circle"
           />

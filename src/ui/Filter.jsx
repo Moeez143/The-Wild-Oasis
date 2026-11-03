@@ -9,6 +9,9 @@ const StyledFilter = styled.div`
   padding: 0.4rem;
   display: flex;
   gap: 0.4rem;
+
+  max-width: 100%;
+  overflow-x: auto;
 `;
 
 const FilterButton = styled.button`
@@ -33,6 +36,9 @@ const FilterButton = styled.button`
     background-color: var(--color-brand-600);
     color: var(--color-brand-50);
   }
+
+  flex: 0 0 auto;
+  white-space: nowrap;
 `;
 
 function Filter({ filterField, options }) {

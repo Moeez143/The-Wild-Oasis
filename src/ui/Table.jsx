@@ -8,6 +8,16 @@ const StyledTable = styled.div`
   background-color: var(--color-grey-0);
   border-radius: 7px;
   overflow: hidden;
+
+  min-width: 0;
+
+  @media (max-width: 1100px) {
+    overflow-x: auto;
+  }
+
+  @media (max-width: 700px) {
+    overflow: visible;
+  }
 `;
 
 const CommonRow = styled.div`
@@ -27,6 +37,14 @@ const StyledHeader = styled(CommonRow)`
   letter-spacing: 0.4px;
   font-weight: 600;
   color: var(--color-grey-600);
+
+  @media (min-width: 701px) and (max-width: 1100px) {
+    min-width: 80rem;
+  }
+
+  @media (max-width: 700px) {
+    display: none;
+  }
 `;
 
 const StyledRow = styled(CommonRow)`
@@ -35,10 +53,33 @@ const StyledRow = styled(CommonRow)`
   &:not(:last-child) {
     border-bottom: 1px solid var(--color-grey-100);
   }
+
+  @media (min-width: 701px) and (max-width: 1100px) {
+    min-width: 80rem;
+  }
+
+  @media (max-width: 700px) {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.2rem;
+    padding: 1.6rem;
+    border: 1px solid var(--color-grey-200);
+    border-radius: var(--border-radius-md);
+  }
 `;
 
 const StyledBody = styled.section`
   margin: 0.4rem 0;
+
+  @media (min-width: 701px) and (max-width: 1100px) {
+    min-width: 80rem;
+  }
+
+  @media (max-width: 700px) {
+    display: grid;
+    gap: 1rem;
+    margin: 0;
+    padding: 1rem;
+  }
 `;
 
 const Footer = styled.footer`
@@ -58,6 +99,36 @@ const Empty = styled.p`
   font-weight: 500;
   text-align: center;
   margin: 2.4rem;
+`;
+
+const Cell = styled.div`
+  min-width: 0;
+  overflow-wrap: anywhere;
+
+  @media (max-width: 700px) {
+    display: grid;
+    grid-template-columns: minmax(7rem, 30%) minmax(0, 1fr);
+    gap: 0.8rem;
+    align-items: center;
+
+    &::before {
+      content: attr(data-label);
+      color: var(--color-grey-500);
+      font-weight: 600;
+    }
+
+    &[data-label=""] {
+      display: block;
+    }
+
+    &[data-label=""]::before {
+      display: none;
+    }
+
+    &[data-label="Actions"] {
+      justify-items: end;
+    }
+  }
 `;
 
 const TableContext = createContext();
@@ -104,6 +175,7 @@ function Body({ data, render }) {
 
 Table.Header = Header;
 Table.Row = Row;
+Table.Cell = Cell;
 Table.Body = Body;
 Table.Footer = Footer;
 

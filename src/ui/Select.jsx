@@ -12,6 +12,9 @@ const StyledSelect = styled.select`
   background-color: var(--color-grey-0);
   font-weight: 500;
   box-shadow: var(--shadow-sm);
+
+  max-width: 100%;
+  min-width: 0;
 `;
 
 function Select({ options, value, onChange, ...props }) {

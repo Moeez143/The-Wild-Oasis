@@ -22,6 +22,12 @@ const StyledSalesChart = styled(DashboardBox)`
   & .recharts-cartesian-grid-vertical line {
     stroke: var(--color-grey-300);
   }
+
+  min-width: 0;
+
+  @media (max-width: 700px) {
+    grid-column: 1;
+  }
 `;
 
 // const fakeData = [

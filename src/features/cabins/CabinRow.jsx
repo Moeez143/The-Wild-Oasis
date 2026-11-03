@@ -29,6 +29,14 @@ const Img = styled.img`
   object-fit: cover;
   object-position: center;
   transform: scale(1.5) translateX(-3px);
+
+  @media (max-width: 700px) {
+    width: 100%;
+    max-height: 14rem;
+    aspect-ratio: 16 / 9;
+    transform: none;
+    border-radius: var(--border-radius-sm);
+  }
 `;
 
 const Cabin = styled.div`
@@ -76,16 +84,18 @@ function CabinRow({ cabin }) {
 
   return (
     <Table.Row>
-      <Img src={image} />
-      <Cabin>{name}</Cabin>
-      <div>Fits up to {maxCapacity} guests</div>
-      <Price>{formatCurrency(regularPrice)}</Price>
-      {discount ? (
-        <Discount>{formatCurrency(discount)}</Discount>
-      ) : (
-        <span>&mdash;</span>
-      )}
-      <div>
+      <Table.Cell data-label=""><Img src={image} alt={"Cabin " + name} /></Table.Cell>
+      <Table.Cell data-label="Cabin"><Cabin>{name}</Cabin></Table.Cell>
+      <Table.Cell data-label="Capacity">Fits up to {maxCapacity} guests</Table.Cell>
+      <Table.Cell data-label="Price"><Price>{formatCurrency(regularPrice)}</Price></Table.Cell>
+      <Table.Cell data-label="Discount">
+        {discount ? (
+          <Discount>{formatCurrency(discount)}</Discount>
+        ) : (
+          <span>&mdash;</span>
+        )}
+      </Table.Cell>
+      <Table.Cell data-label="Actions">
         <Modal>
           <Menus.Menu>
             <Menus.Toggle id={cabinId} />
@@ -121,7 +131,7 @@ function CabinRow({ cabin }) {
             </Modal.Window>
           </Menus.Menu>
         </Modal>
-      </div>
+      </Table.Cell>
     </Table.Row>
   );
 }
