@@ -2,13 +2,7 @@ import { supabaseKey, supabaseUrl } from "../src/services/supabase.js";
 
 const tables = ["settings", "cabins", "bookings"];
 
-export async function GET(request) {
-  const secret = process.env.CRON_SECRET;
-
-  if (!secret || request.headers.get("authorization") !== "Bearer " + secret) {
-    return Response.json({ error: "Unauthorized" }, { status: 401 });
-  }
-
+export async function GET() {
   try {
     for (const table of tables) {
       const response = await fetch(

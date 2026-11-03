@@ -107,11 +107,9 @@ The Vercel cron in vercel.json calls /api/keep-alive once a day at 00:00 UTC
 (05:00 in Pakistan). The function makes three small, read-only database requests
 to settings, cabins, and bookings. It does not create or change records.
 
-Before deploying, add a random CRON_SECRET of at least 16 characters to this
-Vercel project's Production environment variables, then redeploy. Vercel sends
-it as a Bearer token when invoking the cron. Without it, the endpoint returns
-401 and no keep-alive requests are made. After deployment, verify the Cron Jobs
-page and function logs in Vercel show successful runs.
+After deployment, verify the Cron Jobs page and function logs in Vercel show
+successful runs. The endpoint is public, so anyone with its URL can trigger
+these read-only queries.
 
 Supabase says a few database requests each day usually prevent Free Plan
 inactivity pauses, but this is not guaranteed. If the project is already
